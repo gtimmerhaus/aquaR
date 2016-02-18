@@ -1,0 +1,14 @@
+Package: AquaR
+Title: Functions for aquaculture related topics
+Version: 1.0
+Authors@R: person("Gerrit", "Timmerhaus", email = "gerrit.timmerhaus@gmail.com", role = c("aut", "cre"))
+Description: This package contains functions to speed up the analysis of
+    aquaculture related data.
+Depends: R (>= 3.1.0)
+License: GPL-3
+URL: https://github.com/Gedit/AquaR
+RoxygenNote: 5.0.0
+NeedsCompilation: no
+Packaged: 2016-02-17 14:42:58 UTC; gerrit.timmerhaus
+Author: Gerrit Timmerhaus [aut, cre]
+Maintainer: Gerrit Timmerhaus <gerrit.timmerhaus@gmail.com>
