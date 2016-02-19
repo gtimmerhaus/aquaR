@@ -1,11 +1,12 @@
 aquaR
 =================
-This package was created to speed up certain analyses in aquaculture research with focus on plotting results. This package is also work in progress and new functions will be added in the future.
+This package was created to speed up certain analyses in aquaculture research with focus on plotting results. This package is work in progress and new functions will be added and edited in the future.
 
 ### install
 with `devtools`:
 ```S
-devtools::install_github('aquaR', 'Gedit ')
+library(devtools)
+install_github("gtimmerhaus/aquaR")
 ```
 ### use
 Overview over the available functions so far:
