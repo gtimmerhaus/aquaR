@@ -28,7 +28,8 @@
 #' @param leg.labels vector containing the labels for the legend
 #' @export
 #' @examples
-#' HR.plot(hr, dat$group, col=c("blue","red"))
+#' HR.plot(hr.only, hr.data$group, col=c("blue","red"))
+
 
 
 
@@ -50,7 +51,7 @@ HR.plot <- function(data, groups, xlabels=colnames(data), dodge=0.03, sig.marks=
   #chech for sufficient colors:
   if(n > length(col)){
       warning("not enough colors in vector col. Using greys instead")
-      col <- paste0("grey", seq(0,70, length.out = n))
+      col <- paste0("grey", floor(seq(0,70, length.out = n)))
   }
   
   if (at[1]==""){at=1:n}
