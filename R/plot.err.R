@@ -25,10 +25,8 @@
 #' @param sig.groups vector with significant marker, which will be places over the error bars (order is 1:n and not according to at!)
 #' @export plot.err
 #' @examples
-#' plot.err(data=c(1,2,3,5,3,2,4,12), groups = c(rep("a",4),rep("b",4)))
-
-
-
+#' plot.err(hr.data$weight, hr.data$group)
+#' plot.err(hr.data$weight, paste(hr.data$group, hr.data$rank))
 
 
 plot.err <- function(data, groups, at=FALSE, type="dot", barwidth=0.2, col="black", err.bars="sterr", cex=2, 

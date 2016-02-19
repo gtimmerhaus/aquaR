@@ -29,8 +29,7 @@
 #' @export
 #' @examples
 #' HR.plot(hr.only, hr.data$group, col=c("blue","red"))
-
-
+#' HR.plot(hr.only, paste(hr.data$group, hr.data$rank), col=c("lightblue","orange","blue","red"))
 
 
 HR.plot <- function(data, groups, xlabels=colnames(data), dodge=0.03, sig.marks=T, 
