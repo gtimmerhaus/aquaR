@@ -11,6 +11,7 @@ devtools::install_github('aquaR', 'Gedit ')
 Overview over the available functions so far:
 
 General functions:
+
 1. sterr: calculated the standard error for the imput data vector.
 2. barplot.col: Plots a barplot with means of the data according to the group vector and addes error bars.
 3. plot.err: Similar to barplot.col but dots are plotted instead of bars.
@@ -18,6 +19,7 @@ General functions:
 
 
 Functions for temperature dependent maximum heart rate analysis:
+
 5. HR.plot: a specialized plot for for visualization and analysis of hear rate data.
 6. q10: calculated the Q10 values for heart rate breakpoint analysis.
 7. breakPointsQ10: plots and calcualtes the breakpoints for optimum temperature according to Q10 values
