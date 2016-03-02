@@ -16,14 +16,9 @@
 #' @examples
 #' breakPointsArrhenius(x=data[,-1], group=groups)
 
-x <- normalized[,11:18]
-group <- normalized$group
-col <- cols[1:3]
-pch <- 16
-error.bars <- T
 
 breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.bars=T,
-                                 ylim=c(4,5.2), pch=16, legend=T, xlab="Temperature (°C)", ylab="ln(HR max)") {
+                                 ylim=c(4,5.2), pch=16, legend=T, xlab="Temperature (Â°C)", ylab="ln(HR max)") {
     arr.vals <- rev(log(x))
     m <- aggregate(arr.vals, by = list(group), mean, na.rm=T)
     e <- aggregate(arr.vals, by = list(group), sterr)
