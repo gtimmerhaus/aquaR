@@ -24,9 +24,9 @@ breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.ba
   e <- aggregate(arr.vals, by = list(group), sterr)
   
   #chech for sufficient colors:
-  if(length(unique(groups)) > length(col)){
+  if(length(unique(group)) > length(col)){
       warning("not enough colors in vector col. Using greys instead")
-      col <- paste0("grey", seq(0,70, length.out = length(unique(groups))))
+      col <- paste0("grey", seq(0,70, length.out = length(unique(group))))
   }
   if (length(pch)<nrow(m)) {pch<-rep(pch, nrow(m))} #supply enough pch's for the loop
   
