@@ -10,6 +10,7 @@
 #' @param pch define dot style
 #' @param legeng if TRUE, a legend is added
 #' @param threshold defines the threshold for optimum temperature. Default is 1.9
+#' @param main title of plot. Default is FALSE = no title
 #' @param plot.results plot results if TRUE (default). If FALSE, only calculated breakpoints are returned.
 #' @param xlab label for x-axis
 #' @param ylab label for y-axis
@@ -20,7 +21,7 @@
 
 
 breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(0,3), pch=16, legend=T, threshold=1.9,
-                           plot.results=T, xlab="start point temperature", ylab="Q10 value") {
+                           main = F, plot.results=T, xlab="start point temperature", ylab="Q10 value") {
     q10.vals <- q10(x)
     m <- aggregate(q10.vals, by = list(group), mean, na.rm=T)
     e <- aggregate(q10.vals, by = list(group), sterr)
@@ -33,7 +34,11 @@ breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(
     if (length(pch)<nrow(m)) {pch<-rep(pch, nrow(m))} #supply enough pch's for the loop
     
     if(plot.results){#initiallize plot (if desired)
-        plot(as.numeric(m[1,-1]), ylim=ylim, type="b", pch=pch[1], col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2)
+        if(main==F){# make plot with title or without
+            plot(as.numeric(m[1,-1]), ylim=ylim, type="b", pch=pch[1], col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2)
+        }else{
+            plot(as.numeric(m[1,-1]), ylim=ylim, type="b", pch=pch[1], col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2, main=main)
+        }
         if (error.bars) {arrows(1:ncol(m), as.numeric(m[1,-1]-e[1,-1]), 1:ncol(m), as.numeric(m[1,-1]+e[1,-1]), angle = 90, length = 0.05, code = 3)}
         if (nrow(m)>1){
             for (i in 2:nrow(m)){

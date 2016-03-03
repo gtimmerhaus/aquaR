@@ -17,7 +17,7 @@
 #' @param length length of error bar heads
 #' @param lwd line width of dot connectors
 #' @param lwd.err line width of error bars
-#' @param main title of plot. Default if FALSE = no title
+#' @param main title of plot. Default is FALSE = no title
 #' @param las.x text orientation for x-axis labels (1=horizontal, 2=vertical)
 #' @param las.y text orientation for y-axis (2=horizontal, 1=vertical)
 #' @param legend.pos position of legend 

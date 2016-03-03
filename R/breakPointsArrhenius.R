@@ -8,6 +8,7 @@
 #' @param obs minimum number of observations to calculate the correlation in the linear phase. Default is 3. 
 #' @param error.bars if TRUE, standard error bars are added
 #' @param plot.results plot results if TRUE (default). If FALSE, only calculated breakpoints are returned.
+#' @param main title of plot. Default is FALSE = no title
 #' @param ylim define own ylim
 #' @param pch define dot style
 #' @param legeng if TRUE, a legend is added
@@ -19,7 +20,7 @@
 
 
 
-breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.bars=T, plot.results=T,
+breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.bars=T, plot.results=T, main=F,
                                  ylim=c(4,5.2), pch=16, legend=T, xlab="Temperature (°C)", ylab="ln(HR max)") {
 
     arr.vals <- rev(log(x))
@@ -40,8 +41,11 @@ breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.ba
     labels <- gsub("X","",colnames(arr.vals),perl=T)
     
     if(plot.results){#initiallize plot (if desired)
-        plot(as.numeric(m[1,-1]), ylim=ylim, type="p", pch=pch[1], 
-             col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2)
+        if(main==F){# make plot with title or without
+            plot(as.numeric(m[1,-1]), ylim=ylim, type="p", pch=pch[1], col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2)
+        }else{
+            plot(as.numeric(m[1,-1]), ylim=ylim, type="p", pch=pch[1], col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2, main=main)
+        }
         if (error.bars) {arrows(1:ncol(m), as.numeric(m[1,-1]-e[1,-1]), 1:ncol(m), as.numeric(m[1,-1]+e[1,-1]), angle = 90, length = 0.05, code = 3)}
         if (nrow(m)>1){
             for (i in 2:nrow(m)){
