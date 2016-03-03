@@ -7,6 +7,7 @@
 #' @param marks add marks for the optimum temperature
 #' @param obs minimum number of observations to calculate the correlation in the linear phase. Default is 3. 
 #' @param error.bars if TRUE, standard error bars are added
+#' @param plot.results plot results if TRUE (default). If FALSE, only calculated breakpoints are returned.
 #' @param ylim define own ylim
 #' @param pch define dot style
 #' @param legeng if TRUE, a legend is added
@@ -16,8 +17,8 @@
 #' @examples
 #' breakPointsArrhenius(x=data[,-1], group=groups)
 
-breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.bars=T,
-                                 ylim=c(4,5.2), pch=16, legend=T, xlab="Temperature (Â°C)", ylab="ln(HR max)") {
+breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.bars=T, plot.results=T,
+                                 ylim=c(4,5.2), pch=16, legend=T, xlab="Temperature (°C)", ylab="ln(HR max)") {
 
     arr.vals <- rev(log(x))
     m <- aggregate(arr.vals, by = list(group), mean, na.rm=T)
@@ -30,20 +31,24 @@ breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.ba
         warning("not enough colors in vector col. Using greys instead")
         col <- paste0("grey", seq(0,70, length.out = length(unique(group))))
     }
-    if (length(pch)<nrow(m)) {pch<-rep(pch, nrow(m))} #supply enough pch's for the loop
+    #make sure pch is long enough:
+    if(length(pch)<nrow(m)) {pch<-rep(pch, nrow(m))} 
     
+    #remove the "X" from column names to get degrees  
     labels <- gsub("X","",colnames(arr.vals),perl=T)
     
-    plot(as.numeric(m[1,-1]), ylim=ylim, type="p", pch=pch[1], 
-         col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2)
-    if (error.bars) {arrows(1:ncol(m), as.numeric(m[1,-1]-e[1,-1]), 1:ncol(m), as.numeric(m[1,-1]+e[1,-1]), angle = 90, length = 0.05, code = 3)}
-    if (nrow(m)>1){
-        for (i in 2:nrow(m)){
-            points(as.numeric(m[i,-1]), type="p", pch=pch[i], col=col[i])
-            if (error.bars) {arrows(1:ncol(m), as.numeric(m[i,-1]-e[i,-1]), 1:ncol(m), as.numeric(m[i,-1]+e[i,-1]), angle = 90, length = 0.05, code = 3)}
+    if(plot.results){#initiallize plot (if desired)
+        plot(as.numeric(m[1,-1]), ylim=ylim, type="p", pch=pch[1], 
+             col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2)
+        if (error.bars) {arrows(1:ncol(m), as.numeric(m[1,-1]-e[1,-1]), 1:ncol(m), as.numeric(m[1,-1]+e[1,-1]), angle = 90, length = 0.05, code = 3)}
+        if (nrow(m)>1){
+            for (i in 2:nrow(m)){
+                points(as.numeric(m[i,-1]), type="p", pch=pch[i], col=col[i])
+                if (error.bars) {arrows(1:ncol(m), as.numeric(m[i,-1]-e[i,-1]), 1:ncol(m), as.numeric(m[i,-1]+e[i,-1]), angle = 90, length = 0.05, code = 3)}
+            }
         }
+        axis(1, at=1:ncol(arr.vals), labels=labels)
     }
-    axis(1, at=1:ncol(arr.vals), labels=labels)
     
     #breakpoint calculation:
     res <- matrix(rep(NA,nrow(m)*2),ncol=2)
@@ -64,11 +69,13 @@ breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.ba
         #calculate meeting point:
         xpos <- (beyInc$coefficients[1]-linInc$coefficients[1])/(linInc$coefficients[2]-beyInc$coefficients[2])
         ypos <- linInc$coefficients[1]+linInc$coefficients[2]*xpos
-        #draw linear lines:
-        points(c(xpos, ncol(temp)), c(ypos, linInc$coefficients[1]+linInc$coefficients[2]*ncol(temp)), col=col[i], type="l")
-        points(c(xpos, 1), c(ypos, beyInc$coefficients[1]+beyInc$coefficients[2]*1), col=col[i], type="l")
-        #draw indicator line:
-        points(rep(xpos,2), c(ypos,0), type="l", lty=2, col=col[i])
+        if(plot.results){# add visuals to the plot:
+            #draw linear lines:
+            points(c(xpos, ncol(temp)), c(ypos, linInc$coefficients[1]+linInc$coefficients[2]*ncol(temp)), col=col[i], type="l")
+            points(c(xpos, 1), c(ypos, beyInc$coefficients[1]+beyInc$coefficients[2]*1), col=col[i], type="l")
+            #draw indicator line:
+            points(rep(xpos,2), c(ypos,0), type="l", lty=2, col=col[i])
+        }
         #print calculated ABT:
         print(paste0(m$Group.1[i],": ", round(as.numeric(labels[floor(xpos)]) - xpos %% 1,3)))
     }

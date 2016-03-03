@@ -10,6 +10,7 @@
 #' @param pch define dot style
 #' @param legeng if TRUE, a legend is added
 #' @param threshold defines the threshold for optimum temperature. Default is 1.9
+#' @param plot.results plot results if TRUE (default). If FALSE, only calculated breakpoints are returned.
 #' @param xlab label for x-axis
 #' @param ylab label for y-axis
 #' @export
@@ -19,8 +20,7 @@
 
 
 breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(0,3), pch=16, legend=T, threshold=1.9,
-                           xlab="start point temperature", ylab="Q10 value") {
-    
+                           plot.results=T, xlab="start point temperature", ylab="Q10 value") {
     q10.vals <- q10(x)
     m <- aggregate(q10.vals, by = list(group), mean, na.rm=T)
     e <- aggregate(q10.vals, by = list(group), sterr)
@@ -32,17 +32,19 @@ breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(
     }
     if (length(pch)<nrow(m)) {pch<-rep(pch, nrow(m))} #supply enough pch's for the loop
     
-    plot(as.numeric(m[1,-1]), ylim=ylim, type="b", pch=pch[1], col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2)
-    if (error.bars) {arrows(1:ncol(m), as.numeric(m[1,-1]-e[1,-1]), 1:ncol(m), as.numeric(m[1,-1]+e[1,-1]), angle = 90, length = 0.05, code = 3)}
-    if (nrow(m)>1){
-        for (i in 2:nrow(m)){
-            points(as.numeric(m[i,-1]), type="b", pch=pch[i], col=col[i])
-            if (error.bars) {arrows(1:ncol(m), as.numeric(m[i,-1]-e[i,-1]), 1:ncol(m), as.numeric(m[i,-1]+e[i,-1]), angle = 90, length = 0.05, code = 3)}
+    if(plot.results){#initiallize plot (if desired)
+        plot(as.numeric(m[1,-1]), ylim=ylim, type="b", pch=pch[1], col=col[1], xaxt="n", xlab=xlab, ylab=ylab, las=2)
+        if (error.bars) {arrows(1:ncol(m), as.numeric(m[1,-1]-e[1,-1]), 1:ncol(m), as.numeric(m[1,-1]+e[1,-1]), angle = 90, length = 0.05, code = 3)}
+        if (nrow(m)>1){
+            for (i in 2:nrow(m)){
+                points(as.numeric(m[i,-1]), type="b", pch=pch[i], col=col[i])
+                if (error.bars) {arrows(1:ncol(m), as.numeric(m[i,-1]-e[i,-1]), 1:ncol(m), as.numeric(m[i,-1]+e[i,-1]), angle = 90, length = 0.05, code = 3)}
+            }
         }
+        labels <- gsub("X","",colnames(q10.vals),perl=T)
+        axis(1, at=1:ncol(q10.vals), labels=labels)
+        abline(h=threshold, lty=2)
     }
-    labels <- gsub("X","",colnames(q10.vals),perl=T)
-    axis(1, at=1:ncol(q10.vals), labels=labels)
-    abline(h=threshold, lty=2)
     #breakpoint calculation:
     th <- (m<threshold)[,-3:-1] #find values below threshold and skip the first three columns
     breakpoints <- rep(NA,nrow(m))
@@ -51,7 +53,7 @@ breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(
             if(!is.na(th[i,ii]) & th[i,ii]==TRUE){ #find first TRUE value
                 breakpoints[i] <-
                     (m[i,ii+2]-threshold)/((m[i,ii+2]-threshold)+(threshold-m[i,ii+3]))
-                if (marks) {points(rep(breakpoints[i],2)+ii+1, c(-5,threshold), type="l", lty=2, col=col[i])}
+                if(marks&plot.results){points(rep(breakpoints[i],2)+ii+1, c(-5,threshold), type="l", lty=2, col=col[i])}
                 breakpoints[i] <- as.numeric(as.character(labels[ii+1])) + breakpoints[i]
                 print(paste0(m$Group.1[i],": ", round(breakpoints[i],3)))
                 break

@@ -17,7 +17,7 @@
 #' @param length length of error bar heads
 #' @param lwd line width of dot connectors
 #' @param lwd.err line width of error bars
-#' @param main title of plot
+#' @param main title of plot. Default if FALSE = no title
 #' @param las.x text orientation for x-axis labels (1=horizontal, 2=vertical)
 #' @param las.y text orientation for y-axis (2=horizontal, 1=vertical)
 #' @param legend.pos position of legend 
@@ -35,7 +35,7 @@
 HR.plot <- function(data, groups, xlabels=colnames(data), dodge=0.03, sig.marks=T, 
                     xlim="", ylim="", cex=2, col="", pch=16, err.bar.col = T,
                     xlab="degrees C", ylab="maximum heart rate (bpm)", 
-                    length=0.02, lwd=1, lwd.err=1, main="", las.x=1,las.y=2, 
+                    length=0.02, lwd=1, lwd.err=1, main=F, las.x=1,las.y=2, 
                     legend.pos="bottomright", legend=TRUE, bg.grid=T, at="", 
                     cutoff=0.5, leg.labels=""){
   
@@ -58,7 +58,11 @@ HR.plot <- function(data, groups, xlabels=colnames(data), dodge=0.03, sig.marks=
   means <- means[at,]
   errs <- errs[at,]
   
-  plot(x, x, col="white", xlim=xlim, ylim=ylim, las=las.y, ylab=ylab, xaxt="n", xlab=xlab)
+  if(main==F){
+      plot(x, x, col="white", xlim=xlim, ylim=ylim, las=las.y, ylab=ylab, xaxt="n", xlab=xlab)
+  }else{
+      plot(x, x, col="white", xlim=xlim, ylim=ylim, las=las.y, ylab=ylab, xaxt="n", xlab=xlab, main=main)
+  }
   
   #significance markers:
   if(sig.marks == T){
