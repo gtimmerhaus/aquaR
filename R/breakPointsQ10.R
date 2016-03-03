@@ -51,7 +51,7 @@ breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(
             if(!is.na(th[i,ii]) & th[i,ii]==TRUE){ #find first TRUE value
                 breakpoints[i] <-
                     (m[i,ii+2]-threshold)/((m[i,ii+2]-threshold)+(threshold-m[i,ii+3]))
-                if (marks) {points(rep(breakpoints[i],2)+ii+1, c(-5,threshold), type="l", lty=3, col=col[i])}
+                if (marks) {points(rep(breakpoints[i],2)+ii+1, c(-5,threshold), type="l", lty=2, col=col[i])}
                 breakpoints[i] <- as.numeric(as.character(labels[ii+1])) + breakpoints[i]
                 print(paste0(m$Group.1[i],": ", round(breakpoints[i],3)))
                 break
