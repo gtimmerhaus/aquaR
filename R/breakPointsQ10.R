@@ -46,7 +46,9 @@ breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(
         abline(h=threshold, lty=2)
     }
     #breakpoint calculation:
-    th <- (m<threshold)[,-3:-1] #find values below threshold and skip the first three columns
+#    th <- (m<threshold)[,-3:-1] #find values below threshold and skip the first three columns
+    th <- m[,-3:-1] #find values below threshold and skip the first three columns
+    th <- th<threshold #find values below threshold and skip the first three columns
     breakpoints <- rep(NA,nrow(m))
     for(i in 1:nrow(th)){
         for (ii in 1:ncol(th)){
