@@ -60,6 +60,6 @@ breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(
             }
         }
     }
-    if (legend) {legend("topright", legend=m$Group.1, pch=pch, col=col, lwd=1)} 
+    if(legend&plot.results){legend("topright", legend=m$Group.1, pch=pch, col=col, lwd=1)} 
 }
 

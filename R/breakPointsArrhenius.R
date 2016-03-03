@@ -80,7 +80,7 @@ breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.ba
         print(paste0(m$Group.1[i],": ", round(as.numeric(labels[floor(xpos)]) - xpos %% 1,3)))
     }
     
-    if (legend) {legend("topright", legend=m$Group.1, pch=pch, col=col, lwd=1)}
+    if(legend&plot.results){legend("topright", legend=m$Group.1, pch=pch, col=col, lwd=1)}
 }
 
 
