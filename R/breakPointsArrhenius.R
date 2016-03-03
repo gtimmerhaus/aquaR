@@ -17,6 +17,8 @@
 #' @examples
 #' breakPointsArrhenius(x=data[,-1], group=groups)
 
+
+
 breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.bars=T, plot.results=T,
                                  ylim=c(4,5.2), pch=16, legend=T, xlab="Temperature (°C)", ylab="ln(HR max)") {
 
@@ -51,6 +53,7 @@ breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.ba
     }
     
     #breakpoint calculation:
+    breakpoints <- data.frame(groups = m[,1], breakpoints = rep(NA,length(m[,1]))) #init data frame for breakpoint results
     res <- matrix(rep(NA,nrow(m)*2),ncol=2)
     colnames(res) <- c("bestCor", "column")
     temp <- m[,-1] #remove group column
@@ -76,11 +79,13 @@ breakPointsArrhenius <- function(x, group, col="black", marks=T, obs=3, error.ba
             #draw indicator line:
             points(rep(xpos,2), c(ypos,0), type="l", lty=2, col=col[i])
         }
-        #print calculated ABT:
-        print(paste0(m$Group.1[i],": ", round(as.numeric(labels[floor(xpos)]) - xpos %% 1,3)))
+        #save calculated ABT:
+        breakpoints[i,2] <- round(as.numeric(labels[floor(xpos)]) - xpos %% 1,3)
     }
-    
+    #add legend to to plot:
     if(legend&plot.results){legend("topright", legend=m$Group.1, pch=pch, col=col, lwd=1)}
+    #return calculated results:
+    breakpoints    
 }
 
 

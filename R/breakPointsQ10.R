@@ -46,7 +46,7 @@ breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(
         abline(h=threshold, lty=2)
     }
     #breakpoint calculation:
-#    th <- (m<threshold)[,-3:-1] #find values below threshold and skip the first three columns
+    breakpoints.res <- data.frame(groups = m[,1], breakpoints = rep(NA,length(m[,1]))) #init data frame for breakpoint results
     th <- m[,-3:-1] #find values below threshold and skip the first three columns
     th <- th<threshold #find values below threshold and skip the first three columns
     breakpoints <- rep(NA,nrow(m))
@@ -57,11 +57,13 @@ breakPointsQ10 <- function(x, group, col="black", marks=T, error.bars=T, ylim=c(
                     (m[i,ii+2]-threshold)/((m[i,ii+2]-threshold)+(threshold-m[i,ii+3]))
                 if(marks&plot.results){points(rep(breakpoints[i],2)+ii+1, c(-5,threshold), type="l", lty=2, col=col[i])}
                 breakpoints[i] <- as.numeric(as.character(labels[ii+1])) + breakpoints[i]
-                print(paste0(m$Group.1[i],": ", round(breakpoints[i],3)))
+                breakpoints.res[i,2] <- round(breakpoints[i],3)
                 break
             }
         }
     }
     if(legend&plot.results){legend("topright", legend=m$Group.1, pch=pch, col=col, lwd=1)} 
+    #return breakpoints:
+    breakpoints.res
 }
 
