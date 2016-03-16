@@ -8,6 +8,7 @@
 #' @param err error bars show standard error ("sterr") or standard deviation ("sd").
 #' @param dodge adds a dodge to the x-axis position of the groups.
 #' @param cex defines the size of the dots.
+#' @param xaxt if TRUE (default) an x-axis is added to the plot.
 #' @param length defines the length of the arrow heads of the error bars
 #' @param legend.pos defines the legend position. Must be "topleft", "topright", "bottomleft" or "bottomright". If legend != TRUE, no legend will be drawn.
 #' @param stats adds markers for significant differences (ANOVA, for the respective timepoint) to the bottom of the plot.
@@ -15,7 +16,9 @@
 #' @examples
 #' plot.err.time(data = c(1,2,4,5,4,3,2,3,3,4,6,5,4,3,2,3,4,5,2,3), time = c(rep(c(rep(1,5),rep(2,5)),2)), groups = c(rep("a",10),rep("b",10)), col=c("blue","red"))
 
-plot.err.time <- function(data, time, groups, col="black", err.bars="sterr", dodge=0.02, cex=2, xlab="", ylab="means", length=0.02, lwd=1, main="", las.x=1,las.y=2, legend.pos="topleft", legend=TRUE, ylim=NULL, stats=FALSE) {
+plot.err.time <- function(data, time, groups, col="black", err.bars="sterr", dodge=0.02, cex=2, 
+                          xlab="", ylab="means", length=0.02, lwd=1, main="", xaxt=T, las.x=1,las.y=2, 
+                          legend.pos="topleft", legend=TRUE, ylim=NULL, stats=FALSE) {
   
   if(err.bars!="sterr" & err.bars!="sd"){stop("err.bars must be 'sd' (standard deviation) or 'sterr' (standard error)")} #check for correct err.bars setting
  
@@ -31,7 +34,7 @@ plot.err.time <- function(data, time, groups, col="black", err.bars="sterr", dod
   plot(x, x, xaxt="n", xlab=xlab, col=NULL, ylab=ylab,main=main,
        xlim=c(0.8, length(x)+0.2), ylim=ylim, las=las.y
   )
-  axis(1,labels=levels(as.factor(means[,1])),at=x,las=las.x)
+  if(xaxt){axis(1,labels=levels(as.factor(means[,1])),at=x,las=las.x)}
   
   ngroup <- length(levels(as.factor(means[,2]))) #number of groups
   dodge <- seq(0,2*dodge,length.out = ngroup) #calculate dodge for the groups
