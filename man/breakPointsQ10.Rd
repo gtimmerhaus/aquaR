@@ -5,8 +5,8 @@
 \title{Plot Q10 values for groups and calculate optimum temperature.}
 \usage{
 breakPointsQ10(x, group, col = "black", marks = T, error.bars = T,
-  ylim = c(0, 3), pch = 16, legend = T, threshold = 1.9,
-  xlab = "start point temperature", ylab = "Q10 value")
+  ylim = c(0, 3), pch = 16, legend = T, threshold = 1.9, main = F,
+  plot.results = T, xlab = "start point temperature", ylab = "Q10 value")
 }
 \arguments{
 \item{x}{data matrix, numbers or NAs only, samples in lines, one column per measurement step.}
@@ -22,6 +22,10 @@ breakPointsQ10(x, group, col = "black", marks = T, error.bars = T,
 \item{pch}{define dot style}
 
 \item{threshold}{defines the threshold for optimum temperature. Default is 1.9}
+
+\item{main}{title of plot. Default is FALSE = no title}
+
+\item{plot.results}{plot results if TRUE (default). If FALSE, only calculated breakpoints are returned.}
 
 \item{xlab}{label for x-axis}
 

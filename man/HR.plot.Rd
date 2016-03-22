@@ -4,12 +4,12 @@
 \alias{HR.plot}
 \title{Plot heart rate data}
 \usage{
-HR.plot(data, groups, xlabels = colnames(data), dodge = 0.03, xlim = "",
-  ylim = "", cex = 2, xlab = "degrees C",
-  ylab = "maximum heart rate (bpm)", length = 0.02, lwd = 1,
-  lwd.err = 1, main = "", las.x = 1, las.y = 2,
-  legend.pos = "bottomright", legend = TRUE, bg.grid = T, col = "",
-  pch = 16, at = "", cutoff = 0.5, sig.marks = "", leg.labels = "")
+HR.plot(data, groups, xlabels = colnames(data), dodge = 0.03,
+  sig.marks = T, xlim = "", ylim = "", cex = 2, col = "", pch = 16,
+  err.bar.col = T, xlab = "degrees C", ylab = "maximum heart rate (bpm)",
+  length = 0.02, lwd = 1, lwd.err = 1, main = F, las.x = 1,
+  las.y = 2, legend.pos = "bottomright", legend = TRUE, bg.grid = T,
+  at = "", cutoff = 0.5, leg.labels = "")
 }
 \arguments{
 \item{data}{data matrix, numbers or NAs only, samples in lines, one column per measurement step.}
@@ -20,11 +20,19 @@ HR.plot(data, groups, xlabels = colnames(data), dodge = 0.03, xlim = "",
 
 \item{dodge}{add a dodge on xaxis for groups}
 
+\item{sig.marks}{if TRUE (default) grey rectangle and asterisks are added to the background of the plot to mark significant differences in groups according to ANOVA (*: p<0.05, **: p<0.01)}
+
 \item{xlim}{define own xlim}
 
 \item{ylim}{define own ylim}
 
 \item{cex}{scaling of data points}
+
+\item{col}{color vector. If insufficient number of colors is given black to grey colors are used.}
+
+\item{pch}{defines dot style. Can be a vector with length = number of groups}
+
+\item{err.bar.col}{if TRUE (default), error bars will be drawn in same color as group colors. Otherwise in black}
 
 \item{xlab}{label of x-axis}
 
@@ -36,7 +44,7 @@ HR.plot(data, groups, xlabels = colnames(data), dodge = 0.03, xlim = "",
 
 \item{lwd.err}{line width of error bars}
 
-\item{main}{title of plot}
+\item{main}{title of plot. Default is FALSE = no title}
 
 \item{las.x}{text orientation for x-axis labels (1=horizontal, 2=vertical)}
 
@@ -48,22 +56,17 @@ HR.plot(data, groups, xlabels = colnames(data), dodge = 0.03, xlim = "",
 
 \item{bg.grid}{if TRUE, a background grid will be drawn}
 
-\item{col}{optinal color vector, default is grey scales}
-
-\item{pch}{defines dot style. Can be a vector with length = number of groups}
-
 \item{at}{define order of the groups and positioning for the legend labels}
 
 \item{cutoff}{percentage of samples needed for draing a solid line, less samples will be drawn with a dashed line.}
 
-\item{sig.marks}{vector of x-coordinates. Puts grey rectangle and asterisks in the background of the plot at the indicated position}
-
 \item{leg.labels}{vector containing the labels for the legend}
 }
 \description{
-Specialized plot for heart rate data. Every data point is plotted as a dot with standard error bars. Dots are connected by solid line but as soon as the number of samples represented by the dat gets below the cutoff, the connective line is dashed.
+Specialized plot for temperature dependend maximum heart rate data. Every data point is plotted as a dot with standard error bars. Dots are connected by solid line but as soon as the number of samples represented by the dat gets below the cutoff, the connective line is dashed.
 }
 \examples{
-HR.plot(data, groups)
+HR.plot(hr.only, hr.data$group, col=c("blue","red"))
+HR.plot(hr.only, paste(hr.data$group, hr.data$rank), col=c("lightblue","orange","blue","red"))
 }
 

@@ -6,9 +6,9 @@
 \usage{
 \method{plot}{err.time}(data, time, groups, col = "black",
   err.bars = "sterr", dodge = 0.02, cex = 2, xlab = "",
-  ylab = "means", length = 0.02, lwd = 1, main = "", las.x = 1,
-  las.y = 2, legend.pos = "topleft", legend = TRUE, ylim = NULL,
-  stats = FALSE)
+  ylab = "means", length = 0.02, lwd = 1, main = "", xaxt = T,
+  las.x = 1, las.y = 2, legend.pos = "topleft", legend = TRUE,
+  ylim = NULL, stats = FALSE)
 }
 \arguments{
 \item{data}{a numeric vector containing the data to plot.}
@@ -24,6 +24,8 @@
 \item{cex}{defines the size of the dots.}
 
 \item{length}{defines the length of the arrow heads of the error bars}
+
+\item{xaxt}{if TRUE (default) an x-axis is added to the plot.}
 
 \item{legend.pos}{defines the legend position. Must be "topleft", "topright", "bottomleft" or "bottomright". If legend != TRUE, no legend will be drawn.}
 

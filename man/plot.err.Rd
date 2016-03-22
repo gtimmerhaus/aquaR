@@ -59,6 +59,7 @@
 Plot the mean of a data vector, grouped be the group vector and add error bars.
 }
 \examples{
-plot.err(data=c(1,2,3,5,3,2,4,12), groups = c(rep("a",4),rep("b",4)))
+plot.err(hr.data$weight, hr.data$group)
+plot.err(hr.data$weight, paste(hr.data$group, hr.data$rank))
 }
 

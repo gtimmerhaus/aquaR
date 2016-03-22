@@ -5,8 +5,8 @@
 \title{produce an Arrhenius plot for groups and calculate optimum temperature.}
 \usage{
 breakPointsArrhenius(x, group, col = "black", marks = T, obs = 3,
-  error.bars = T, ylim = c(4, 5.2), pch = 16, legend = T,
-  xlab = "Temperature (<U+00B0>C)", ylab = "ln(HR max)")
+  error.bars = T, plot.results = T, main = F, ylim = c(4, 5.2),
+  pch = 16, legend = T, xlab = "Temperature (<U+00B0>C)", ylab = "ln(HR max)")
 }
 \arguments{
 \item{x}{data matrix, numbers or NAs only, samples in lines, one column per measurement step.}
@@ -18,6 +18,10 @@ breakPointsArrhenius(x, group, col = "black", marks = T, obs = 3,
 \item{obs}{minimum number of observations to calculate the correlation in the linear phase. Default is 3.}
 
 \item{error.bars}{if TRUE, standard error bars are added}
+
+\item{plot.results}{plot results if TRUE (default). If FALSE, only calculated breakpoints are returned.}
+
+\item{main}{title of plot. Default is FALSE = no title}
 
 \item{ylim}{define own ylim}
 
