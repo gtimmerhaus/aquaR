@@ -52,6 +52,13 @@ HR.plot <- function(data, groups, xlabels=colnames(data), dodge=0.03, sig.marks=
       warning("not enough colors in vector col. Using greys instead")
       col <- paste0("grey", floor(seq(0,70, length.out = n)))
   }
+  #make pch vector
+  if(length(pch) == 1){pch <- rep(pch,n)}else{
+      if(length(pch) != n){
+          warning("length of pch-vector differs from number of groups")
+          pch <- rep(pch,n) #make vector longer than n 
+      }
+  }
   
   if (at[1]==""){at=1:n}
   #rearange data according to "at":
@@ -85,6 +92,7 @@ HR.plot <- function(data, groups, xlabels=colnames(data), dodge=0.03, sig.marks=
   if(bg.grid == T){
     abline(h=1:20*10, v=1:100, col="grey",lty=3)
   }
+  xlabels <- gsub("X", "", xlabels)
   axis(1, at=x, labels=xlabels, cex.axis=0.8)
   
   #error bars
@@ -102,7 +110,7 @@ HR.plot <- function(data, groups, xlabels=colnames(data), dodge=0.03, sig.marks=
   temp[means[,-1]*solid==0] <- NA #remove marked measures
   #plot solid line:
   for (i in 1:n) {
-    points(x+(i-round(n/2))*dodge,temp[i,], type="b", col=col[i], lwd=lwd, pch=pch)
+    points(x+(i-round(n/2))*dodge,temp[i,], type="b", col=col[i], lwd=lwd, pch=pch[i])
   }
   #mark the last TRUE as FALSE in each line (to have a connecting line to the solid lines):
   for (i in 1:n){solid[i,table(solid[i,])["TRUE"] ] <- FALSE}
@@ -111,10 +119,10 @@ HR.plot <- function(data, groups, xlabels=colnames(data), dodge=0.03, sig.marks=
   temp[means[,-1]*(!solid)==0] <- NA 
   #plot dashed line:
   for (i in 1:n) {
-    points(x+(i-round(n/2))*dodge,temp[i,], type="b", col=col[i], lwd=lwd, pch=pch, lty=2)
+    points(x+(i-round(n/2))*dodge,temp[i,], type="b", col=col[i], lwd=lwd, pch=pch[i], lty=2)
   }
   #legend:
   if(leg.labels[1]==""){leg.labels<-means[,1]}
-  if (legend==T){legend(legend.pos, legend=leg.labels, col=col, lwd=1, pch=16)}
+  if (legend==T){legend(legend.pos, legend=leg.labels, col=col, lwd=1, pch=pch[1:n])}
 }
 
