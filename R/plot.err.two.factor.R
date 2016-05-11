@@ -50,7 +50,7 @@ plot.err.two.factor <- function(data, group1, group2, rect.width = c(-0.3,0.3), 
     #prepare plot:
     plot(at, meansG1[,2], cex=cex, xaxt="n", xlab=xlab, pch=16, col=col,ylab=ylab,main=main,
          ylim=c(min(meansG2[,3]-errsG2[,3]), max(meansG2[,3]+errsG2[,3]))*yscale,
-         xlim=c(0.5, length(means[,1])+0.5), las=las.y, cex.axis=cex.yaxis)
+         xlim=c(0.5, length(meansG1[,1])+0.5), las=las.y, cex.axis=cex.yaxis)
     #add boxes for group1 means and errors:
     rect(at+rect.width[1], meansG1[,2]+errsG1[,2], at+rect.width[2], meansG1[,2]-errsG1[,2], col=colG1)
     for(i in 1:nrow(meansG1)){
@@ -72,7 +72,7 @@ plot.err.two.factor <- function(data, group1, group2, rect.width = c(-0.3,0.3), 
         points(x + at[i], c(NA, y ,NA), cex = cex, pch=16, col=c(NA,colG2,NA))
     }
 
-    if(xaxt==T){axis(1,labels=means[,1],at=at,las=las.x, cex.axis=cex.xaxis)}
+    if(xaxt==T){axis(1,labels=meansG1[,1],at=at,las=las.x, cex.axis=cex.xaxis)}
     
     legend(legend.pos, pch=16, legend=levels(meansG2[,2]), col=colG2)
     
