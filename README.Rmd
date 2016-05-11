@@ -14,15 +14,16 @@ Overview over the available functions so far:
 General functions:
 
 1. sterr: calculated the standard error for the imput data vector.
-2. barplot.col: Plots a barplot with means of the data according to the group vector and addes error bars.
-3. plot.err: Similar to barplot.col but dots are plotted instead of bars.
-4. plot.err.time: similar to plot.err but made for time series in addition to groups.
-
+2. TGC_calculation: Calcualte the thermal growth coefficient
+3. barplot.col: Plots a barplot with means of the data according to the group vector and addes error bars.
+4. plot.err: Similar to barplot.col but dots are plotted instead of bars.
+5. plot.err.time: similar to plot.err but made for time series in addition to groups.
+6. plot.err.two.factor: Plot group data in the background (group1) and subgroups (group2) in the foreground with error bars.
 
 Functions for temperature dependent maximum heart rate analysis:
 
-5. HR.plot: a specialized plot for for visualization and analysis of hear rate data.
-6. q10: calculated the Q10 values for heart rate breakpoint analysis.
-7. breakPointsQ10: plots and calcualtes the breakpoints for optimum temperature according to Q10 values
-8. breakPointsArrhenius: plots and calcualtes the breakpoints for optimum temperature according to Arrhenius' method 
+7. HR.plot: a specialized plot for for visualization and analysis of hear rate data.
+8. q10: calculated the Q10 values for heart rate breakpoint analysis.
+9. breakPointsQ10: plots and calcualtes the breakpoints for optimum temperature according to Q10 values
+10. breakPointsArrhenius: plots and calcualtes the breakpoints for optimum temperature according to Arrhenius' method 
 
